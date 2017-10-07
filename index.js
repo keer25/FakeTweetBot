@@ -27,6 +27,15 @@ bot.on('attachment', function(userId, attachment){
 
 // Config the Get Started Button and register a callback
 bot.setGetStartedButton("GET_STARTED");
+var menuButtons = [
+    {
+        "type": "postback",
+        "title": "Play Real or Fake",
+        "payload": "PLAY_GAME"
+    }
+];
+bot.setPersistentMenu(menuButtons);
+
 bot.on('postback', function(userId, payload){
     if (payload == "GET_STARTED") {
         getStarted(userId);
