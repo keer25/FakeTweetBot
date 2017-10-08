@@ -37,7 +37,7 @@ var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
                // Typical action to be performed when the document is ready:
-               bot.sendTextMessage(userId, xhr.responseText);
+               bot.sendTextMessage(userId, attachment[0].payload.url);
             }
         };
         apiurl = "https://tameesh.in/bong/";
