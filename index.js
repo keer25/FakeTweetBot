@@ -42,8 +42,8 @@ var xhr = new XMLHttpRequest();
         };
         apiurl = "https://tameesh.in/bong/";
         xhr.open("POST", apiurl, true);
-        var params = "url="+attachment[0].payload.url;
-        xhr.send(params);
+        var params = {"url": attachment[0].payload.url};
+        xhr.send(JSON.stringify(params));
 		//Replace this with th call to the detector API and store attachment[0].payload.url
 	}else {
 		bot.sendTextMessage(userId, "Sorry! I am not trained to handle this");
