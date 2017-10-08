@@ -11,8 +11,15 @@ verify_token: config.verify_token
 // Setup Express middleware for /webhook
 app.use("/webhook", bot.middleware());
 
+//Game Initial Tweet images
+tweets = [ {"url": "http://allindiaroundup.com/wp-content/uploads/2015/10/KRK-tweet-about-karan-johar.png", "fake":false},
+            {"url": "https://scontent-bom1-1.xx.fbcdn.net/v/t34.0-12/22361337_1428552197264265_845718889_n.png?oh=dc8fbcbf1323a0aa2597743a66677cc0&oe=59DC5D95", "fake":true},
+            {"url": "https://scontent-bom1-1.xx.fbcdn.net/v/t34.0-12/22323364_1428560393930112_120733817_n.png?oh=644be78b8a3693f37bbb98aeed79ba68&oe=59DC92C3", "fake":true },
+            {"url": "https://scontent-bom1-1.xx.fbcdn.net/v/t34.0-12/22386531_1428551607264324_2098766147_n.png?oh=8c76736af742dea8a8d0db934fa749df&oe=59DCA7AC", "fake":false},
+            {"url": "https://scontent.fmaa1-1.fna.fbcdn.net/v/t34.0-12/22407699_1428560893930062_1555253289_n.png?oh=6e9ce063e3fd3601297ee2a1b5046a51&oe=59DC33DA", "fake":false} ];
+
 var payloadMessages = [ { "payload": "GUESSED_FAKE_FAKE", "message": "Correct! You have quite an eye" },
-						{ "payload": "GUESSED_FAKE_NOTFAKE", "message": "Ouch! It is actually a real tweet." },				
+						{ "payload": "GUESSED_FAKE_NOTFAKE", "message": "Ouch! It is actually a real tweet." },
 						{ "payload": "GUESSED_NOTFAKE_FAKE", "message": "You have been fooled. It is Fake. You are out user demographic" },
 						{ "payload": "GUESSED_NOTFAKE_NOTFAKE", "message": "Yup it is not fake.. Clever!" }
 					];
@@ -27,7 +34,7 @@ bot.on('attachment', function(userId, attachment){
 		//Replace this with th call to the detector API and store attachment[0].payload.url
 		bot.sendTextMessage(userId, "Analyser under construction");
 	}else {
-		bot.sendTextMessage(userId, "I can't process that");
+		bot.sendTextMessage(userId, "Sorry! I am not trained to handle this");
 	}
 })
 
@@ -47,8 +54,9 @@ bot.on('postback', function(userId, payload){
         getStarted(userId);
     }else if (payload == 'PLAY_GAME') {
     	//Get a random image url from the API and whether it is fake or not
-    	url = "https://scontent.fmaa1-1.fna.fbcdn.net/v/t34.0-0/p280x280/22360975_175571383007543_665586497_n.jpg?oh=369b2cda7ae6014c72a5846af6a0640b&oe=59DBFBF6";
-    	isFake = true;
+        randint = Math.floor(Math.random() * 5);
+    	url = tweets[randint].url;
+    	isFake = tweets[randint].fake;
     	offset = 0;
     	if(!isFake) {
     		offset = 1;
