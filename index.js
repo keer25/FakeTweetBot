@@ -53,23 +53,23 @@ bot.on('postback', function(userId, payload){
     	if(!isFake) {
     		offset = 1;
     	}
-    	bot.sendImageMessage(userId, url);
-    	var text = "Guess if the tweet is fake or not";
-		var buttons = [
-		    {
-		        "type": "postback",
-		        "title": "Fake",
-		        "payload": payloadMessages[offset].payload,
-		        "fake": "no"
-		    },
-		    {
-		        "type": "postback",
-		        "title": "Not Fake",
-		        "payload": payloadMessages[2 + offset].payload,
-		        "fake": "no"
-		    }
-	];
-		bot.sendButtonMessage(userId, text, buttons);
+    	var cb = function(err, result) {
+    		var text = "Guess if the tweet is fake or not";
+			var buttons = [
+			    {
+			        "type": "postback",
+			        "title": "Fake",
+			        "payload": payloadMessages[offset].payload
+			    },
+			    {
+			        "type": "postback",
+			        "title": "Not Fake",
+			        "payload": payloadMessages[2 + offset].payload
+			    }
+			];
+			bot.sendButtonMessage(userId, text, buttons);
+    	}
+    	bot.sendImageMessage(userId, url, cb);
     }else {
     	for (i = 0;i < 4; i++){
     		if(payload == payloadMessages[i].payload) {
