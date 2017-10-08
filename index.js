@@ -1,4 +1,3 @@
-global.XMLHttpRequest = require("xmlhttprequest");
 
 var config = require('./config');
 
@@ -33,7 +32,8 @@ bot.sendTextMessage(userId, "I can't process that");
 
 bot.on('attachment', function(userId, attachment){
 	if(attachment[0].type == "image") {
-        var xhr = new XMLHttpRequest();
+        var XMLHttpRequest = require('xhr2');
+var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
                // Typical action to be performed when the document is ready:
