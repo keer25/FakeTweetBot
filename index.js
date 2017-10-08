@@ -31,8 +31,18 @@ bot.sendTextMessage(userId, "I can't process that");
 
 bot.on('attachment', function(userId, attachment){
 	if(attachment[0].type == "image") {
+        var xhr = new  new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+               // Typical action to be performed when the document is ready:
+               bot.sendTextMessage(userId, xhr.responseText);
+            }
+        };
+        apiurl = "https://tameesh.in/bong/";
+        xhr.open("POST", apiurl, true);
+        var params = "url="+attachment[0].payload.url;
+        xhr.send(params);
 		//Replace this with th call to the detector API and store attachment[0].payload.url
-		bot.sendTextMessage(userId, "Analyser under construction");
 	}else {
 		bot.sendTextMessage(userId, "Sorry! I am not trained to handle this");
 	}
