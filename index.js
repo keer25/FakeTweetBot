@@ -1,3 +1,5 @@
+global.XMLHttpRequest = require("xmlhttprequest");
+
 var config = require('./config');
 
 var express = require('express');
