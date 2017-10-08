@@ -74,13 +74,17 @@ bot.on('postback', function(userId, payload){
     	for (i = 0;i < 4; i++){
     		if(payload == payloadMessages[i].payload) {
     			bot.sendTextMessage(userId, payloadMessages[i].message);
+    			text = "Play again?";
+    			buttons = [ {"type": "postback", "title": "Yes!", "payload": "PLAY_GAME"},
+    						{"type": "postback", "title": "Nah", "payload": "GET_STARTED"} ];
+    			bot.sendButtonMessage(userId, text, buttons);
     		}
     	}
     }
 });
 
 function getStarted(userId){
-    bot.sendTextMessage(userId, "Send a screenshot of a tweet and we will let you know if it is genuine or fake!");
+    bot.sendTextMessage(userId, "Send a screenshot of a tweet and we will let you know if it is genuine or fake or Play a game to guess whether a tweet is fake or not!");
 }
 
 app.get("/", function (req, res){
